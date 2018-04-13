@@ -16,5 +16,40 @@ namespace RestWinYouTube
         {
             InitializeComponent();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #region UI Event Handler
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //debugOutput("Clicked Button");
+            RestClient rClient = new RestClient();
+            rClient.endPoint = txtRequestURI.Text;
+            debugOutput("Rest Client Created");
+
+            string sResponse = string.Empty;
+
+            sResponse = rClient.makeRequest();
+
+            debugOutput(sResponse);
+        }
+        #endregion
+
+        private void debugOutput(string strDebugText)
+        { try
+            {
+                System.Diagnostics.Debug.Write(strDebugText + Environment.NewLine);
+                txtResponse.Text = txtResponse.Text + strDebugText + Environment.NewLine;
+                txtResponse.SelectionStart = txtResponse.TextLength;
+                txtResponse.ScrollToCaret();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write(ex.Message, ToString() + Environment.NewLine);
+            }
+        }
     }
 }
