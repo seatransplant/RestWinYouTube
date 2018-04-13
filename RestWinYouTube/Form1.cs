@@ -35,6 +35,8 @@ namespace RestWinYouTube
             sResponse = rClient.makeRequest();
 
             debugOutput(sResponse);
+
+            JSONOutput(sResponse);
         }
         #endregion
 
@@ -50,6 +52,28 @@ namespace RestWinYouTube
             {
                 System.Diagnostics.Debug.Write(ex.Message, ToString() + Environment.NewLine);
             }
+        }
+
+        private void JSONOutput(string strDebugText)
+        {
+            try
+            {
+                System.Diagnostics.Debug.Write(strDebugText + Environment.NewLine);
+                txtJSONOutput.Text = string.Empty;
+                txtJSONOutput.Text = strDebugText;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write(ex.Message, ToString() + Environment.NewLine);
+                debugOutput("Error During JSONOutput:" + ex.Message.ToString());
+            }
+        }
+
+        private void btnClearDebug_Click(object sender, EventArgs e)
+        {
+            txtJSONOutput.Text = string.Empty;
+            txtDeserialized.Text = string.Empty;
+            txtResponse.Text = string.Empty;
         }
     }
 }
