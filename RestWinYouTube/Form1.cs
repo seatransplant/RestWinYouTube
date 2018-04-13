@@ -1,47 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace RestWinYouTube
 {
-    public partial class Form1 : Form
+    public partial class GetJSON : Form
     {
-        public Form1()
+        public GetJSON()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        #region UI Event Handler
+        private void RequestResponse(object sender, EventArgs e)
         {
+            //debugOutput("Clicked Button");
+            try
+            {
+                RestClient rClient = new RestClient();
+                rClient.endPoint = txtRequestURI.Text;
+                DebugOutput("Rest Client Created");
+
+                string sResponse = string.Empty;
+
+                sResponse = rClient.makeRequest();
+
+                DebugOutput(sResponse);
+
+                JSONOutput(sResponse);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write(ex.Message, ToString() + Environment.NewLine);
+                DebugOutput(Environment.NewLine + ">>> Error RequestResponse:" + ex.Message.ToString());
+            }
 
         }
 
-        #region UI Event Handler
-        private void button1_Click(object sender, EventArgs e)
+        private void btnDeseralize_Click(object sender, EventArgs e)
         {
-            //debugOutput("Clicked Button");
-            RestClient rClient = new RestClient();
-            rClient.endPoint = txtRequestURI.Text;
-            debugOutput("Rest Client Created");
+            DeserializedOutput(string.Empty);
+            DeserializeJSON(txtJSONOutput.Text.ToString());
+        }
 
-            string sResponse = string.Empty;
+        private void ClearDebug_Click(object sender, EventArgs e)
+        {
+            txtJSONOutput.Text = string.Empty;
+            txtDeserialized.Text = string.Empty;
+            txtResponse.Text = string.Empty;
 
-            sResponse = rClient.makeRequest();
-
-            debugOutput(sResponse);
-
-            JSONOutput(sResponse);
         }
         #endregion
 
-        private void debugOutput(string strDebugText)
-        { try
+        #region UpdateTextBoxes
+        // after making the call to the RESTful API, put the data here
+        private void DebugOutput(string strDebugText)
+        {
+            try
             {
                 System.Diagnostics.Debug.Write(strDebugText + Environment.NewLine);
                 txtResponse.Text = txtResponse.Text + strDebugText + Environment.NewLine;
@@ -64,16 +80,66 @@ namespace RestWinYouTube
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.Write(ex.Message, ToString() + Environment.NewLine);
-                debugOutput("Error During JSONOutput:" + ex.Message.ToString());
+                System.Diagnostics.Debug.Write(ex.Message.ToString() + Environment.NewLine);
+                DebugOutput(Environment.NewLine + ">>> Error During JSONOutput:" + ex.Message.ToString());
             }
         }
 
-        private void btnClearDebug_Click(object sender, EventArgs e)
+        // After getting the RESTful API result deserialized, put it in the box
+        private void DeserializedOutput(string strDeserialized)
         {
-            txtJSONOutput.Text = string.Empty;
-            txtDeserialized.Text = string.Empty;
-            txtResponse.Text = string.Empty;
+            try
+            {
+                System.Diagnostics.Debug.Write(strDeserialized + Environment.NewLine);
+                txtDeserialized.Text = strDeserialized;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write(ex.Message.ToString() + Environment.NewLine);
+                DebugOutput(Environment.NewLine + ">>> Error Durng DeserializedOutput:" + ex.Message.ToString());
+            }
+        }
+        #endregion
+
+
+        #region DeSerialize
+
+        private void DeserializeJSON(string strJSON)
+        {
+
+            try
+            {
+                List<BaseName> jPerson = JsonConvert.DeserializeObject<List<BaseName>>(strJSON);
+                DebugOutput("Sending JSON Result");
+                DeserializedOutput(jPerson[0].name);
+
+            }
+
+            catch (Exception ex)
+            {
+                DebugOutput(Environment.NewLine + ">>> ErrorDesearlizing:" + ex.Message.ToString());
+            }
+
+        }
+
+        #endregion
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
+}
+
+public class RootBaseName
+{
+    public BaseName[] Property1 { get; set; }
+}
+
+public class BaseName
+{
+    public int id { get; set; }
+    public string name { get; set; }
+    public string email { get; set; }
+    public string nationality { get; set; }
 }

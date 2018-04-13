@@ -1,6 +1,6 @@
 ﻿namespace RestWinYouTube
 {
-    partial class Form1
+    partial class GetJSON
     {
         /// <summary>
         /// Required designer variable.
@@ -51,13 +51,14 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(676, 43);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Go";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.RequestResponse);
             // 
             // label1
             // 
@@ -67,13 +68,15 @@
             this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Request URI";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtResponse
             // 
+            this.txtResponse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtResponse.Location = new System.Drawing.Point(18, 92);
             this.txtResponse.Multiline = true;
             this.txtResponse.Name = "txtResponse";
+            this.txtResponse.ReadOnly = true;
             this.txtResponse.Size = new System.Drawing.Size(733, 94);
             this.txtResponse.TabIndex = 3;
             // 
@@ -97,6 +100,8 @@
             // 
             // txtJSONOutput
             // 
+            this.txtJSONOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtJSONOutput.Location = new System.Drawing.Point(18, 209);
             this.txtJSONOutput.Multiline = true;
             this.txtJSONOutput.Name = "txtJSONOutput";
@@ -105,25 +110,31 @@
             // 
             // btnDeseralize
             // 
+            this.btnDeseralize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDeseralize.Location = new System.Drawing.Point(676, 209);
             this.btnDeseralize.Name = "btnDeseralize";
             this.btnDeseralize.Size = new System.Drawing.Size(75, 23);
             this.btnDeseralize.TabIndex = 7;
             this.btnDeseralize.Text = "Deserialize";
             this.btnDeseralize.UseVisualStyleBackColor = true;
+            this.btnDeseralize.Click += new System.EventHandler(this.btnDeseralize_Click);
             // 
             // btnClearDebug
             // 
+            this.btnClearDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClearDebug.Location = new System.Drawing.Point(676, 239);
             this.btnClearDebug.Name = "btnClearDebug";
             this.btnClearDebug.Size = new System.Drawing.Size(75, 23);
             this.btnClearDebug.TabIndex = 8;
             this.btnClearDebug.Text = "ClearDebug";
             this.btnClearDebug.UseVisualStyleBackColor = true;
-            this.btnClearDebug.Click += new System.EventHandler(this.btnClearDebug_Click);
+            this.btnClearDebug.Click += new System.EventHandler(this.ClearDebug_Click);
             // 
             // txtDeserialized
             // 
+            this.txtDeserialized.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDeserialized.Location = new System.Drawing.Point(18, 343);
             this.txtDeserialized.Multiline = true;
             this.txtDeserialized.Name = "txtDeserialized";
@@ -139,7 +150,7 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Result";
             // 
-            // Form1
+            // GetJSON
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -155,8 +166,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtRequestURI);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "GetJSON";
+            this.Text = "GetJSON";
             this.ResumeLayout(false);
             this.PerformLayout();
 
