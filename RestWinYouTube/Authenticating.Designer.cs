@@ -41,7 +41,7 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.bUseAuthentication = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.radNCC = new System.Windows.Forms.RadioButton();
             this.radRoll = new System.Windows.Forms.RadioButton();
@@ -53,37 +53,39 @@
             this.label6 = new System.Windows.Forms.Label();
             this.numValues = new System.Windows.Forms.NumericUpDown();
             this.bRecord = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.rBtnJSON = new System.Windows.Forms.RadioButton();
+            this.rBtnSeaTransplant = new System.Windows.Forms.RadioButton();
+            this.rBtnTMobile = new System.Windows.Forms.RadioButton();
+            this.bPopulate = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValues)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtDeserialized
             // 
-            this.txtDeserialized.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDeserialized.Location = new System.Drawing.Point(10, 466);
+            this.txtDeserialized.Location = new System.Drawing.Point(11, 466);
             this.txtDeserialized.Multiline = true;
             this.txtDeserialized.Name = "txtDeserialized";
-            this.txtDeserialized.Size = new System.Drawing.Size(735, 244);
+            this.txtDeserialized.Size = new System.Drawing.Size(756, 244);
             this.txtDeserialized.TabIndex = 17;
             // 
             // btnClearDebug
             // 
-            this.btnClearDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearDebug.Location = new System.Drawing.Point(672, 227);
+            this.btnClearDebug.Location = new System.Drawing.Point(692, 227);
             this.btnClearDebug.Name = "btnClearDebug";
             this.btnClearDebug.Size = new System.Drawing.Size(75, 23);
             this.btnClearDebug.TabIndex = 16;
             this.btnClearDebug.Text = "ClearDebug";
             this.btnClearDebug.UseVisualStyleBackColor = true;
+            this.btnClearDebug.Click += new System.EventHandler(this.btnClearDebug_Click);
             // 
             // btnDeseralize
             // 
-            this.btnDeseralize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeseralize.Location = new System.Drawing.Point(672, 347);
+            this.btnDeseralize.Location = new System.Drawing.Point(692, 347);
             this.btnDeseralize.Name = "btnDeseralize";
             this.btnDeseralize.Size = new System.Drawing.Size(75, 23);
             this.btnDeseralize.TabIndex = 15;
@@ -93,23 +95,19 @@
             // 
             // txtJSONOutput
             // 
-            this.txtJSONOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtJSONOutput.Location = new System.Drawing.Point(10, 347);
             this.txtJSONOutput.Multiline = true;
             this.txtJSONOutput.Name = "txtJSONOutput";
-            this.txtJSONOutput.Size = new System.Drawing.Size(611, 100);
+            this.txtJSONOutput.Size = new System.Drawing.Size(642, 100);
             this.txtJSONOutput.TabIndex = 14;
             // 
             // txtResponse
             // 
-            this.txtResponse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtResponse.Location = new System.Drawing.Point(10, 227);
             this.txtResponse.Multiline = true;
             this.txtResponse.Name = "txtResponse";
             this.txtResponse.ReadOnly = true;
-            this.txtResponse.Size = new System.Drawing.Size(652, 94);
+            this.txtResponse.Size = new System.Drawing.Size(642, 94);
             this.txtResponse.TabIndex = 13;
             // 
             // label1
@@ -123,8 +121,7 @@
             // 
             // bUnauthGo
             // 
-            this.bUnauthGo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.bUnauthGo.Location = new System.Drawing.Point(664, 20);
+            this.bUnauthGo.Location = new System.Drawing.Point(692, 18);
             this.bUnauthGo.Name = "bUnauthGo";
             this.bUnauthGo.Size = new System.Drawing.Size(75, 23);
             this.bUnauthGo.TabIndex = 11;
@@ -160,6 +157,7 @@
             // 
             this.txtPassword.Location = new System.Drawing.Point(327, 19);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 21;
             // 
@@ -174,7 +172,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.bUseAuthentication);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.txtPassword);
@@ -183,19 +181,20 @@
             this.groupBox1.Controls.Add(this.txtUserName);
             this.groupBox1.Location = new System.Drawing.Point(13, 46);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(732, 162);
+            this.groupBox1.Size = new System.Drawing.Size(762, 162);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Authentication Required";
             // 
-            // button2
+            // bUseAuthentication
             // 
-            this.button2.Location = new System.Drawing.Point(617, 70);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(109, 23);
-            this.button2.TabIndex = 24;
-            this.button2.Text = "Go Authentication";
-            this.button2.UseVisualStyleBackColor = true;
+            this.bUseAuthentication.Location = new System.Drawing.Point(645, 71);
+            this.bUseAuthentication.Name = "bUseAuthentication";
+            this.bUseAuthentication.Size = new System.Drawing.Size(109, 23);
+            this.bUseAuthentication.TabIndex = 24;
+            this.bUseAuthentication.Text = "Go Authentication";
+            this.bUseAuthentication.UseVisualStyleBackColor = true;
+            this.bUseAuthentication.Click += new System.EventHandler(this.bUseAuthentication_Click);
             // 
             // groupBox3
             // 
@@ -293,7 +292,7 @@
             // 
             // numValues
             // 
-            this.numValues.Location = new System.Drawing.Point(630, 396);
+            this.numValues.Location = new System.Drawing.Point(658, 399);
             this.numValues.Maximum = new decimal(new int[] {
             0,
             0,
@@ -305,8 +304,7 @@
             // 
             // bRecord
             // 
-            this.bRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bRecord.Location = new System.Drawing.Point(672, 396);
+            this.bRecord.Location = new System.Drawing.Point(692, 396);
             this.bRecord.Name = "bRecord";
             this.bRecord.Size = new System.Drawing.Size(75, 23);
             this.bRecord.TabIndex = 27;
@@ -314,11 +312,67 @@
             this.bRecord.UseVisualStyleBackColor = true;
             this.bRecord.Click += new System.EventHandler(this.bRecord_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.bPopulate);
+            this.groupBox4.Controls.Add(this.rBtnTMobile);
+            this.groupBox4.Controls.Add(this.rBtnSeaTransplant);
+            this.groupBox4.Controls.Add(this.rBtnJSON);
+            this.groupBox4.Location = new System.Drawing.Point(865, 20);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(254, 301);
+            this.groupBox4.TabIndex = 28;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "groupBox4";
+            // 
+            // rBtnJSON
+            // 
+            this.rBtnJSON.AutoSize = true;
+            this.rBtnJSON.Checked = true;
+            this.rBtnJSON.Location = new System.Drawing.Point(21, 26);
+            this.rBtnJSON.Name = "rBtnJSON";
+            this.rBtnJSON.Size = new System.Drawing.Size(83, 17);
+            this.rBtnJSON.TabIndex = 0;
+            this.rBtnJSON.TabStop = true;
+            this.rBtnJSON.Text = "Users JSON";
+            this.rBtnJSON.UseVisualStyleBackColor = true;
+            // 
+            // rBtnSeaTransplant
+            // 
+            this.rBtnSeaTransplant.AutoSize = true;
+            this.rBtnSeaTransplant.Location = new System.Drawing.Point(21, 50);
+            this.rBtnSeaTransplant.Name = "rBtnSeaTransplant";
+            this.rBtnSeaTransplant.Size = new System.Drawing.Size(117, 17);
+            this.rBtnSeaTransplant.TabIndex = 1;
+            this.rBtnSeaTransplant.Text = "SeaTransplant Item";
+            this.rBtnSeaTransplant.UseVisualStyleBackColor = true;
+            // 
+            // rBtnTMobile
+            // 
+            this.rBtnTMobile.AutoSize = true;
+            this.rBtnTMobile.Location = new System.Drawing.Point(21, 73);
+            this.rBtnTMobile.Name = "rBtnTMobile";
+            this.rBtnTMobile.Size = new System.Drawing.Size(89, 17);
+            this.rBtnTMobile.TabIndex = 2;
+            this.rBtnTMobile.Text = "T-Mobile Item";
+            this.rBtnTMobile.UseVisualStyleBackColor = true;
+            // 
+            // bPopulate
+            // 
+            this.bPopulate.Location = new System.Drawing.Point(173, 272);
+            this.bPopulate.Name = "bPopulate";
+            this.bPopulate.Size = new System.Drawing.Size(75, 23);
+            this.bPopulate.TabIndex = 3;
+            this.bPopulate.Text = "Populate";
+            this.bPopulate.UseVisualStyleBackColor = true;
+            this.bPopulate.Click += new System.EventHandler(this.bPopulate_Click);
+            // 
             // Authenticating
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(759, 725);
+            this.ClientSize = new System.Drawing.Size(1131, 725);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.bRecord);
             this.Controls.Add(this.numValues);
             this.Controls.Add(this.label4);
@@ -342,6 +396,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numValues)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -362,7 +418,7 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bUseAuthentication;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RadioButton radNCC;
         private System.Windows.Forms.RadioButton radRoll;
@@ -374,5 +430,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numValues;
         private System.Windows.Forms.Button bRecord;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button bPopulate;
+        private System.Windows.Forms.RadioButton rBtnTMobile;
+        private System.Windows.Forms.RadioButton rBtnSeaTransplant;
+        private System.Windows.Forms.RadioButton rBtnJSON;
     }
 }

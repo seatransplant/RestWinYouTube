@@ -5,7 +5,8 @@ using System.Net;
 
 namespace RestWinYouTube
 {
-    public enum httpVerb
+    #region Enums
+    public enum HttpVerb
     {
         GET,
         POST,
@@ -13,23 +14,56 @@ namespace RestWinYouTube
         DELETE
     }
 
+    public enum AuthenticationType
+    {
+        None,
+        Basic,
+        NTLM
+    }
+
+    public enum AuthenticationTechnique
+    {
+        None,
+        RollYourOwn,
+        NetworkCredential
+    }
+
+    #endregion
+
+
     class RestClient
     {
-        public string endPoint { get; set; }
-        public httpVerb httpMethod { get; set; }
+        public string EndPoint { get; set; }
+        public HttpVerb HttpMethod { get; set; }
+        public AuthenticationType AuthType {get; set;}
+        public AuthenticationTechnique AuthTech { get; set; }       
+        public string UserName { get; set; }
+        public string UserPassword { get; set; }
 
+    
         public RestClient()
         {
-            endPoint = String.Empty;
-            httpMethod = httpVerb.GET;
+            EndPoint = String.Empty;
+            HttpMethod = HttpVerb.GET;
+            AuthType = AuthenticationType.None;
+            AuthTech = AuthenticationTechnique.None;
+            UserName = string.Empty;
+            UserPassword = string.Empty;
         }
 
-        public string makeRequest()
+        public string MakeRequest()
         {
             string strResponseValue = string.Empty;
 
-            WebRequest request = WebRequest.Create(endPoint);
-            request.Method = httpMethod.ToString();
+            WebRequest request = WebRequest.Create(EndPoint);
+            request.Method = HttpMethod.ToString();
+
+            if (AuthType == AuthenticationType.Basic)
+            {
+                string authUser = System.Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(UserName + ":" + UserPassword));
+                string authHeader = AuthTech.ToString() + " " + authUser;
+                request.Headers.Add("Authorization", authHeader);
+            }
             HttpWebResponse response = null;
 
             try
@@ -56,5 +90,6 @@ namespace RestWinYouTube
 
             return strResponseValue;
         }
+
     }
 }

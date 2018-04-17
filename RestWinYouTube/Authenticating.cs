@@ -31,7 +31,7 @@ namespace RestWinYouTube
                 DebugOutput("Calling Rest Interface");
 
                 string sResponse = string.Empty;
-                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString());
+                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString(), AuthenticationType.None, AuthenticationTechnique.None);
 
                 DebugOutput(sResponse);
 
@@ -59,7 +59,7 @@ namespace RestWinYouTube
             numValues.Maximum = 0;
             jPerson = DeserializeJSON(txtJSONOutput.Text.ToString());
             DebugOutput("Completed");
-            if (jPerson!=null)
+            if (jPerson != null)
             {
                 numValues.Minimum = 1;
                 numValues.Maximum = jPerson.Count;
@@ -71,7 +71,7 @@ namespace RestWinYouTube
                 numValues.Maximum = 0;
                 numValues.Enabled = false;
             }
-                
+
         }
         #endregion
 
@@ -81,10 +81,15 @@ namespace RestWinYouTube
         {
             try
             {
-                System.Diagnostics.Debug.Write(strDebugText + Environment.NewLine);
-                txtResponse.Text = txtResponse.Text + strDebugText + Environment.NewLine;
-                txtResponse.SelectionStart = txtResponse.TextLength;
-                txtResponse.ScrollToCaret();
+                if (strDebugText == String.Empty)
+                    txtResponse.Text = strDebugText;
+                else
+                {
+                    System.Diagnostics.Debug.Write(strDebugText + Environment.NewLine);
+                    txtResponse.Text = txtResponse.Text + strDebugText + Environment.NewLine;
+                    txtResponse.SelectionStart = txtResponse.TextLength;
+                    txtResponse.ScrollToCaret();
+                }
             }
             catch (Exception ex)
             {
@@ -151,11 +156,62 @@ namespace RestWinYouTube
         private void bRecord_Click(object sender, EventArgs e)
         {
             UsersJSON result = jPerson[(int)numValues.Value - 1];
-            DeserializedOutput (
-                "Record ID: " + result.id + Environment.NewLine + 
+            DeserializedOutput(
+                "Record ID: " + result.id + Environment.NewLine +
                 "Name: " + result.name + Environment.NewLine +
                 "Email: " + result.email + Environment.NewLine +
                 "Nationality: " + result.nationality);
+        }
+
+        private void bPopulate_Click(object sender, EventArgs e)
+        {
+            if (rBtnJSON.Checked)
+                txtRequestURI.Text = "https://dry-cliffs-19849.herokuapp.com/users.json";
+            else if (rBtnSeaTransplant.Checked)
+                txtRequestURI.Text = "https://seatransplant.atlassian.net/rest/api/2/issue/10144";
+            else if (rBtnTMobile.Checked)
+                txtRequestURI.Text = "https://jira.t-mobile.com/rest/api/2/issue/152518";
+
+
+        }
+
+        private void btnClearDebug_Click(object sender, EventArgs e)
+        {
+            DebugOutput(string.Empty);
+        }
+
+        private void bUseAuthentication_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ResetFormFields();
+                DebugOutput("Calling Rest Interface");
+
+                string sResponse = string.Empty;
+                AuthenticationTechnique technique;
+                AuthenticationType aType;
+
+                if (radBasic.Checked)
+                    aType = AuthenticationType.Basic;
+                else
+                    aType = AuthenticationType.NTLM;
+
+                if (radRoll.Checked)
+                    technique = AuthenticationTechnique.RollYourOwn;
+                else
+                    technique = AuthenticationTechnique.NetworkCredential;
+
+                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString(), aType, technique);
+
+                DebugOutput(sResponse);
+
+                JSONOutput(sResponse);
+            }
+            catch (Exception ex)
+            {
+                DebugOutput("Call Failed: " + ex.ToString() + Environment.NewLine);
+            }
+
         }
     }
 }

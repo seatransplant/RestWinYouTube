@@ -21,7 +21,7 @@ namespace RestWinYouTube
                 DebugOutput("Calling Rest Interface");
 
                 string sResponse = string.Empty;
-                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString());
+                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString(), AuthenticationType.None,AuthenticationTechnique.None);
 
                 DebugOutput(sResponse);
 
@@ -30,7 +30,7 @@ namespace RestWinYouTube
             catch (Exception ex)
             {
                 DebugOutput("Call Failed: " + ex.ToString() + Environment.NewLine);
-               }
+            }
 
         }
 
