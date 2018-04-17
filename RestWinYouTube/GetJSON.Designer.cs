@@ -48,7 +48,7 @@
             this.txtRequestURI.Name = "txtRequestURI";
             this.txtRequestURI.Size = new System.Drawing.Size(529, 20);
             this.txtRequestURI.TabIndex = 0;
-            this.txtRequestURI.Text = "http://dry-cliffs-19849.herokuapp.com/users.json";
+            this.txtRequestURI.Text = "https://dry-cliffs-19849.herokuapp.com/users.json";
             // 
             // button1
             // 
