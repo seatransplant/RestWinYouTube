@@ -18,6 +18,7 @@ namespace RestWinYouTube
             //debugOutput("Clicked Button");
             try
             {
+
                 RestClient rClient = new RestClient();
                 rClient.endPoint = txtRequestURI.Text;
                 DebugOutput("Rest Client Created");
@@ -127,6 +128,12 @@ namespace RestWinYouTube
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void bAuthenticate_Click(object sender, EventArgs e)
+        {
+            Authenticating newForm = new Authenticating();
+            newForm.Show();
         }
     }
 }

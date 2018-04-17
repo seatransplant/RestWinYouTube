@@ -31,5 +31,10 @@ namespace RestWinYouTube
         {
 
         }
+
+        private void bUnauthGo_Click(object sender, EventArgs e)
+        {
+            // TODO: Refactor the Rest calls as well as the buttons. 
+        }
     }
 }

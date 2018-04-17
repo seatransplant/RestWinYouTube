@@ -39,6 +39,7 @@
             this.btnClearDebug = new System.Windows.Forms.Button();
             this.txtDeserialized = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.bAuthenticate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtRequestURI
@@ -150,11 +151,22 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Result";
             // 
+            // bAuthenticate
+            // 
+            this.bAuthenticate.Location = new System.Drawing.Point(677, 285);
+            this.bAuthenticate.Name = "bAuthenticate";
+            this.bAuthenticate.Size = new System.Drawing.Size(75, 23);
+            this.bAuthenticate.TabIndex = 11;
+            this.bAuthenticate.Text = "Authenticate";
+            this.bAuthenticate.UseVisualStyleBackColor = true;
+            this.bAuthenticate.Click += new System.EventHandler(this.bAuthenticate_Click);
+            // 
             // GetJSON
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 590);
+            this.Controls.Add(this.bAuthenticate);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDeserialized);
             this.Controls.Add(this.btnClearDebug);
@@ -186,6 +198,7 @@
         private System.Windows.Forms.Button btnClearDebug;
         private System.Windows.Forms.TextBox txtDeserialized;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button bAuthenticate;
     }
 }
 

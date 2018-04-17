@@ -34,7 +34,7 @@
             this.txtJSONOutput = new System.Windows.Forms.TextBox();
             this.txtResponse = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bUnauthGo = new System.Windows.Forms.Button();
             this.txtRequestURI = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
@@ -118,15 +118,16 @@
             this.label1.TabIndex = 12;
             this.label1.Text = "Request URI";
             // 
-            // button1
+            // bUnauthGo
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.Location = new System.Drawing.Point(664, 20);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Go (Unauth)";
-            this.button1.UseVisualStyleBackColor = true;
+            this.bUnauthGo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.bUnauthGo.Location = new System.Drawing.Point(664, 20);
+            this.bUnauthGo.Name = "bUnauthGo";
+            this.bUnauthGo.Size = new System.Drawing.Size(75, 23);
+            this.bUnauthGo.TabIndex = 11;
+            this.bUnauthGo.Text = "Go (Unauth)";
+            this.bUnauthGo.UseVisualStyleBackColor = true;
+            this.bUnauthGo.Click += new System.EventHandler(this.bUnauthGo_Click);
             // 
             // txtRequestURI
             // 
@@ -304,7 +305,7 @@
             this.Controls.Add(this.txtJSONOutput);
             this.Controls.Add(this.txtResponse);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bUnauthGo);
             this.Controls.Add(this.txtRequestURI);
             this.Name = "Authenticating";
             this.Text = "Authenticating";
@@ -327,7 +328,7 @@
         private System.Windows.Forms.TextBox txtJSONOutput;
         private System.Windows.Forms.TextBox txtResponse;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bUnauthGo;
         private System.Windows.Forms.TextBox txtRequestURI;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUserName;
