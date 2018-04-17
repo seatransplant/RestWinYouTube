@@ -18,6 +18,7 @@ namespace RestWinYouTube
             //debugOutput("Clicked Button");
             try
             {
+
                 RestClient rClient = new RestClient();
                 rClient.endPoint = txtRequestURI.Text;
                 DebugOutput("Rest Client Created");
@@ -109,7 +110,7 @@ namespace RestWinYouTube
 
             try
             {
-                List<BaseName> jPerson = JsonConvert.DeserializeObject<List<BaseName>>(strJSON);
+                List<UsersJSON> jPerson = JsonConvert.DeserializeObject<List<UsersJSON>>(strJSON);
                 DebugOutput("Sending JSON Result");
                 DeserializedOutput(jPerson[0].name);
 
@@ -128,18 +129,11 @@ namespace RestWinYouTube
         {
 
         }
+
+        private void bAuthenticate_Click(object sender, EventArgs e)
+        {
+            Authenticating newForm = new Authenticating();
+            newForm.Show();
+        }
     }
-}
-
-public class RootBaseName
-{
-    public BaseName[] Property1 { get; set; }
-}
-
-public class BaseName
-{
-    public int id { get; set; }
-    public string name { get; set; }
-    public string email { get; set; }
-    public string nationality { get; set; }
 }
