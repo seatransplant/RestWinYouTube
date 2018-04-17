@@ -11,8 +11,11 @@ using System.Windows.Forms;
 
 namespace RestWinYouTube
 {
+
     public partial class Authenticating : Form
     {
+        private List<UsersJSON> jPerson;
+
         public Authenticating()
         {
             InitializeComponent();
@@ -24,7 +27,7 @@ namespace RestWinYouTube
         {
             try
             {
-
+                ResetFormFields();
                 DebugOutput("Calling Rest Interface");
 
                 string sResponse = string.Empty;
@@ -40,11 +43,35 @@ namespace RestWinYouTube
             }
         }
 
+        private void ResetFormFields()
+        {
+            JSONOutput(String.Empty);
+            DeserializedOutput(String.Empty);
+            numValues.Minimum = 0;
+            numValues.Maximum = 0;
+            numValues.Enabled = false;
+        }
+
+
         private void btnDeseralize_Click(object sender, EventArgs e)
         {
             DeserializedOutput(string.Empty);
-            DeserializeJSON(txtJSONOutput.Text.ToString());
-
+            numValues.Maximum = 0;
+            jPerson = DeserializeJSON(txtJSONOutput.Text.ToString());
+            DebugOutput("Completed");
+            if (jPerson!=null)
+            {
+                numValues.Minimum = 1;
+                numValues.Maximum = jPerson.Count;
+                numValues.Enabled = true;
+            }
+            else
+            {
+                numValues.Minimum = 0;
+                numValues.Maximum = 0;
+                numValues.Enabled = false;
+            }
+                
         }
         #endregion
 
@@ -72,6 +99,7 @@ namespace RestWinYouTube
                 System.Diagnostics.Debug.Write(strDebugText + Environment.NewLine);
                 txtJSONOutput.Text = string.Empty;
                 txtJSONOutput.Text = strDebugText;
+                txtDeserialized.Text = string.Empty;
             }
             catch (Exception ex)
             {
@@ -99,25 +127,35 @@ namespace RestWinYouTube
 
         #region DeSerialize
 
-        private void DeserializeJSON(string strJSON)
+        private List<UsersJSON> DeserializeJSON(string strJSON)
         {
 
             try
             {
+                DebugOutput("Deserializing JSON");
                 List<UsersJSON> jPerson = JsonConvert.DeserializeObject<List<UsersJSON>>(strJSON);
-                DebugOutput("Sending JSON Result");
-                DeserializedOutput(jPerson[0].name);
-
+                DebugOutput("Completed: " + jPerson.Count.ToString());
+                return jPerson;
             }
 
             catch (Exception ex)
             {
                 DebugOutput(Environment.NewLine + ">>> ErrorDesearlizing:" + ex.Message.ToString());
+                return null;
             }
 
         }
 
         #endregion
 
+        private void bRecord_Click(object sender, EventArgs e)
+        {
+            UsersJSON result = jPerson[(int)numValues.Value - 1];
+            DeserializedOutput (
+                "Record ID: " + result.id + Environment.NewLine + 
+                "Name: " + result.name + Environment.NewLine +
+                "Email: " + result.email + Environment.NewLine +
+                "Nationality: " + result.nationality);
+        }
     }
 }

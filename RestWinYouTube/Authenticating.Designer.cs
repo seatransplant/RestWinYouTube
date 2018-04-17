@@ -51,9 +51,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.numValues = new System.Windows.Forms.NumericUpDown();
+            this.bRecord = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numValues)).BeginInit();
             this.SuspendLayout();
             // 
             // txtDeserialized
@@ -70,7 +73,7 @@
             // btnClearDebug
             // 
             this.btnClearDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearDebug.Location = new System.Drawing.Point(629, 381);
+            this.btnClearDebug.Location = new System.Drawing.Point(672, 227);
             this.btnClearDebug.Name = "btnClearDebug";
             this.btnClearDebug.Size = new System.Drawing.Size(75, 23);
             this.btnClearDebug.TabIndex = 16;
@@ -80,7 +83,7 @@
             // btnDeseralize
             // 
             this.btnDeseralize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeseralize.Location = new System.Drawing.Point(629, 352);
+            this.btnDeseralize.Location = new System.Drawing.Point(672, 347);
             this.btnDeseralize.Name = "btnDeseralize";
             this.btnDeseralize.Size = new System.Drawing.Size(75, 23);
             this.btnDeseralize.TabIndex = 15;
@@ -106,7 +109,7 @@
             this.txtResponse.Multiline = true;
             this.txtResponse.Name = "txtResponse";
             this.txtResponse.ReadOnly = true;
-            this.txtResponse.Size = new System.Drawing.Size(692, 94);
+            this.txtResponse.Size = new System.Drawing.Size(652, 94);
             this.txtResponse.TabIndex = 13;
             // 
             // label1
@@ -288,11 +291,36 @@
             this.label6.TabIndex = 23;
             this.label6.Text = "Debug Information";
             // 
+            // numValues
+            // 
+            this.numValues.Location = new System.Drawing.Point(630, 396);
+            this.numValues.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numValues.Name = "numValues";
+            this.numValues.Size = new System.Drawing.Size(32, 20);
+            this.numValues.TabIndex = 26;
+            // 
+            // bRecord
+            // 
+            this.bRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bRecord.Location = new System.Drawing.Point(672, 396);
+            this.bRecord.Name = "bRecord";
+            this.bRecord.Size = new System.Drawing.Size(75, 23);
+            this.bRecord.TabIndex = 27;
+            this.bRecord.Text = "Record";
+            this.bRecord.UseVisualStyleBackColor = true;
+            this.bRecord.Click += new System.EventHandler(this.bRecord_Click);
+            // 
             // Authenticating
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(759, 725);
+            this.Controls.Add(this.bRecord);
+            this.Controls.Add(this.numValues);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
@@ -313,6 +341,7 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numValues)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -343,5 +372,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numValues;
+        private System.Windows.Forms.Button bRecord;
     }
 }
