@@ -109,7 +109,7 @@ namespace RestWinYouTube
 
             try
             {
-                List<BaseName> jPerson = JsonConvert.DeserializeObject<List<BaseName>>(strJSON);
+                List<UsersJSON> jPerson = JsonConvert.DeserializeObject<List<UsersJSON>>(strJSON);
                 DebugOutput("Sending JSON Result");
                 DeserializedOutput(jPerson[0].name);
 
@@ -129,17 +129,4 @@ namespace RestWinYouTube
 
         }
     }
-}
-
-public class RootBaseName
-{
-    public BaseName[] Property1 { get; set; }
-}
-
-public class BaseName
-{
-    public int id { get; set; }
-    public string name { get; set; }
-    public string email { get; set; }
-    public string nationality { get; set; }
 }

@@ -30,13 +30,11 @@ namespace RestWinYouTube
 
             WebRequest request = WebRequest.Create(endPoint);
             request.Method = httpMethod.ToString();
+            HttpWebResponse response = null;
 
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new ApplicationException(response.StatusDescription);
-                }
+                response = (HttpWebResponse)request.GetResponse();
 
                 using (Stream responseStream = response.GetResponseStream())
                 {
@@ -49,7 +47,12 @@ namespace RestWinYouTube
                     }
                 }
             }
-
+            catch (Exception ex)
+            {
+                strResponseValue = "{\"errorMessages\":[\"" + ex.Message.ToString() + "\"],\"errors\":{}}";
+            }
+            finally
+            { if (response!=null) response.Dispose(); }
 
             return strResponseValue;
         }
