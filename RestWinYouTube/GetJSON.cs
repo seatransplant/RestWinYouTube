@@ -15,17 +15,13 @@ namespace RestWinYouTube
         #region UI Event Handler
         private void RequestResponse(object sender, EventArgs e)
         {
-            //debugOutput("Clicked Button");
             try
             {
 
-                RestClient rClient = new RestClient();
-                rClient.endPoint = txtRequestURI.Text;
-                DebugOutput("Rest Client Created");
+                DebugOutput("Calling Rest Interface");
 
                 string sResponse = string.Empty;
-
-                sResponse = rClient.makeRequest();
+                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString());
 
                 DebugOutput(sResponse);
 
@@ -33,9 +29,8 @@ namespace RestWinYouTube
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.Write(ex.Message, ToString() + Environment.NewLine);
-                DebugOutput(Environment.NewLine + ">>> Error RequestResponse:" + ex.Message.ToString());
-            }
+                DebugOutput("Call Failed: " + ex.ToString() + Environment.NewLine);
+               }
 
         }
 

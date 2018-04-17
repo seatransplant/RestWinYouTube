@@ -86,6 +86,7 @@
             this.btnDeseralize.TabIndex = 15;
             this.btnDeseralize.Text = "Deserialize";
             this.btnDeseralize.UseVisualStyleBackColor = true;
+            this.btnDeseralize.Click += new System.EventHandler(this.btnDeseralize_Click);
             // 
             // txtJSONOutput
             // 
@@ -96,7 +97,6 @@
             this.txtJSONOutput.Name = "txtJSONOutput";
             this.txtJSONOutput.Size = new System.Drawing.Size(611, 100);
             this.txtJSONOutput.TabIndex = 14;
-            this.txtJSONOutput.TextChanged += new System.EventHandler(this.txtJSONOutput_TextChanged);
             // 
             // txtResponse
             // 
@@ -135,7 +135,7 @@
             this.txtRequestURI.Name = "txtRequestURI";
             this.txtRequestURI.Size = new System.Drawing.Size(529, 20);
             this.txtRequestURI.TabIndex = 10;
-            this.txtRequestURI.Text = "http://dry-cliffs-19849.herokuapp.com/users.json";
+            this.txtRequestURI.Text = "https://dry-cliffs-19849.herokuapp.com/users.json";
             // 
             // label2
             // 
@@ -159,7 +159,6 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 21;
-            this.txtPassword.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label3
             // 
@@ -169,7 +168,6 @@
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 20;
             this.label3.Text = "Password";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // groupBox1
             // 
