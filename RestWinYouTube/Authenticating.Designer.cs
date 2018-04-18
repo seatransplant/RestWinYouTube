@@ -39,12 +39,15 @@
             this.btnDeseralize = new System.Windows.Forms.Button();
             this.btnClearDebug = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.RequestSpecific = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtRequestURI = new System.Windows.Forms.TextBox();
             this.Specifics = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.MaxResults = new System.Windows.Forms.TextBox();
             this.FilterID = new System.Windows.Forms.TextBox();
+            this.RequestSpecific = new System.Windows.Forms.Button();
             this.FilterRadio = new System.Windows.Forms.RadioButton();
             this.bRestartProcess = new System.Windows.Forms.Button();
-            this.bUseAuthentication = new System.Windows.Forms.Button();
             this.gLocation = new System.Windows.Forms.GroupBox();
             this.TMobileChoice = new System.Windows.Forms.RadioButton();
             this.SeaTransplantChoice = new System.Windows.Forms.RadioButton();
@@ -60,15 +63,12 @@
             this.radBasic = new System.Windows.Forms.RadioButton();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.bUseAuthentication = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.txtRequestURI = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ExecutionURI = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.MaxResults = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.ExecutionURI = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numValues)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.Specifics.SuspendLayout();
@@ -190,7 +190,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtRequestURI);
             this.groupBox1.Controls.Add(this.Specifics);
+            this.groupBox1.Controls.Add(this.RequestSpecific);
             this.groupBox1.Controls.Add(this.bRestartProcess);
+            this.groupBox1.Controls.Add(this.bUseAuthentication);
             this.groupBox1.Controls.Add(this.gLocation);
             this.groupBox1.Controls.Add(this.gAuth);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -199,15 +201,24 @@
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             // 
-            // RequestSpecific
+            // label1
             // 
-            this.RequestSpecific.Location = new System.Drawing.Point(411, 77);
-            this.RequestSpecific.Name = "RequestSpecific";
-            this.RequestSpecific.Size = new System.Drawing.Size(103, 23);
-            this.RequestSpecific.TabIndex = 43;
-            this.RequestSpecific.Text = "Request Specific";
-            this.RequestSpecific.UseVisualStyleBackColor = true;
-            this.RequestSpecific.Click += new System.EventHandler(this.RequestSpecific_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 184);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 45;
+            this.label1.Text = "Initial URI:";
+            // 
+            // txtRequestURI
+            // 
+            this.txtRequestURI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRequestURI.Location = new System.Drawing.Point(116, 181);
+            this.txtRequestURI.Name = "txtRequestURI";
+            this.txtRequestURI.Size = new System.Drawing.Size(481, 20);
+            this.txtRequestURI.TabIndex = 44;
+            this.txtRequestURI.Text = "https://dry-cliffs-19849.herokuapp.com/users.json";
             // 
             // Specifics
             // 
@@ -215,15 +226,31 @@
             this.Specifics.Controls.Add(this.label8);
             this.Specifics.Controls.Add(this.MaxResults);
             this.Specifics.Controls.Add(this.FilterID);
-            this.Specifics.Controls.Add(this.RequestSpecific);
             this.Specifics.Controls.Add(this.FilterRadio);
             this.Specifics.Enabled = false;
             this.Specifics.Location = new System.Drawing.Point(748, 15);
             this.Specifics.Name = "Specifics";
-            this.Specifics.Size = new System.Drawing.Size(520, 186);
+            this.Specifics.Size = new System.Drawing.Size(520, 154);
             this.Specifics.TabIndex = 42;
             this.Specifics.TabStop = false;
             this.Specifics.Text = "Specific Options";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(408, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 13);
+            this.label8.TabIndex = 45;
+            this.label8.Text = "Max Results";
+            // 
+            // MaxResults
+            // 
+            this.MaxResults.Location = new System.Drawing.Point(411, 48);
+            this.MaxResults.Name = "MaxResults";
+            this.MaxResults.Size = new System.Drawing.Size(100, 20);
+            this.MaxResults.TabIndex = 44;
+            this.MaxResults.Text = "50";
             // 
             // FilterID
             // 
@@ -231,6 +258,16 @@
             this.FilterID.Name = "FilterID";
             this.FilterID.Size = new System.Drawing.Size(100, 20);
             this.FilterID.TabIndex = 1;
+            // 
+            // RequestSpecific
+            // 
+            this.RequestSpecific.Location = new System.Drawing.Point(1165, 178);
+            this.RequestSpecific.Name = "RequestSpecific";
+            this.RequestSpecific.Size = new System.Drawing.Size(103, 23);
+            this.RequestSpecific.TabIndex = 43;
+            this.RequestSpecific.Text = "Request Specific";
+            this.RequestSpecific.UseVisualStyleBackColor = true;
+            this.RequestSpecific.Click += new System.EventHandler(this.RequestSpecific_Click);
             // 
             // FilterRadio
             // 
@@ -252,16 +289,6 @@
             this.bRestartProcess.Text = "Restart";
             this.bRestartProcess.UseVisualStyleBackColor = true;
             this.bRestartProcess.Click += new System.EventHandler(this.bRestartProcess_Click);
-            // 
-            // bUseAuthentication
-            // 
-            this.bUseAuthentication.Location = new System.Drawing.Point(392, 61);
-            this.bUseAuthentication.Name = "bUseAuthentication";
-            this.bUseAuthentication.Size = new System.Drawing.Size(109, 23);
-            this.bUseAuthentication.TabIndex = 39;
-            this.bUseAuthentication.Text = "Request Simple";
-            this.bUseAuthentication.UseVisualStyleBackColor = true;
-            this.bUseAuthentication.Click += new System.EventHandler(this.bUseAuthentication_Click);
             // 
             // gLocation
             // 
@@ -316,7 +343,6 @@
             this.gAuth.Controls.Add(this.groupBox2);
             this.gAuth.Controls.Add(this.txtPassword);
             this.gAuth.Controls.Add(this.label2);
-            this.gAuth.Controls.Add(this.bUseAuthentication);
             this.gAuth.Controls.Add(this.label3);
             this.gAuth.Controls.Add(this.txtUserName);
             this.gAuth.Location = new System.Drawing.Point(226, 15);
@@ -431,6 +457,16 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "User Name:";
             // 
+            // bUseAuthentication
+            // 
+            this.bUseAuthentication.Location = new System.Drawing.Point(618, 178);
+            this.bUseAuthentication.Name = "bUseAuthentication";
+            this.bUseAuthentication.Size = new System.Drawing.Size(109, 23);
+            this.bUseAuthentication.TabIndex = 39;
+            this.bUseAuthentication.Text = "Request Simple";
+            this.bUseAuthentication.UseVisualStyleBackColor = true;
+            this.bUseAuthentication.Click += new System.EventHandler(this.bUseAuthentication_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -467,32 +503,6 @@
             this.groupBox4.TabIndex = 32;
             this.groupBox4.TabStop = false;
             // 
-            // txtRequestURI
-            // 
-            this.txtRequestURI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRequestURI.Location = new System.Drawing.Point(116, 181);
-            this.txtRequestURI.Name = "txtRequestURI";
-            this.txtRequestURI.Size = new System.Drawing.Size(481, 20);
-            this.txtRequestURI.TabIndex = 44;
-            this.txtRequestURI.Text = "https://dry-cliffs-19849.herokuapp.com/users.json";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 184);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
-            this.label1.TabIndex = 45;
-            this.label1.Text = "Initial URI:";
-            // 
-            // ExecutionURI
-            // 
-            this.ExecutionURI.Location = new System.Drawing.Point(116, 19);
-            this.ExecutionURI.Name = "ExecutionURI";
-            this.ExecutionURI.Size = new System.Drawing.Size(1152, 20);
-            this.ExecutionURI.TabIndex = 44;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -502,22 +512,12 @@
             this.label7.TabIndex = 46;
             this.label7.Text = "Request URI";
             // 
-            // MaxResults
+            // ExecutionURI
             // 
-            this.MaxResults.Location = new System.Drawing.Point(411, 48);
-            this.MaxResults.Name = "MaxResults";
-            this.MaxResults.Size = new System.Drawing.Size(100, 20);
-            this.MaxResults.TabIndex = 44;
-            this.MaxResults.Text = "50";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(408, 22);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 13);
-            this.label8.TabIndex = 45;
-            this.label8.Text = "Max Results";
+            this.ExecutionURI.Location = new System.Drawing.Point(116, 19);
+            this.ExecutionURI.Name = "ExecutionURI";
+            this.ExecutionURI.Size = new System.Drawing.Size(1152, 20);
+            this.ExecutionURI.TabIndex = 44;
             // 
             // Authenticating
             // 

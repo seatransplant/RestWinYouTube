@@ -60,7 +60,8 @@
     <Compile Include="Authenticating.Designer.cs">
       <DependentUpon>Authenticating.cs</DependentUpon>
     </Compile>
-    <Compile Include="JIRAFilterResults.cs" />
+    <Compile Include="JIRA_INFUOPSCS.cs" />
+    <Compile Include="JIRA_SeaTransplant.cs" />
     <Compile Include="TestHarness.cs" />
     <Compile Include="GetJSON.cs">
       <SubType>Form</SubType>
