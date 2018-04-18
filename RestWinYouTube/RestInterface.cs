@@ -8,7 +8,7 @@ namespace RestWinYouTube
 {
     static class RestInterface
     {
-        public static string MakeJSONRequest(string RequestURI, AuthenticationType aType, AuthenticationTechnique aTech)
+        public static string MakeJSONRequest(string RequestURI, AuthenticationType aType, AuthenticationTechnique aTech, string _UserName, string _Password)
         {
             string sResponse = string.Empty;
             try
@@ -18,6 +18,8 @@ namespace RestWinYouTube
                 rClient.EndPoint = RequestURI;
                 rClient.AuthType = aType;
                 rClient.AuthTech = aTech;
+                rClient.UserName = _UserName;
+                rClient.UserPassword = _Password;
 
                 System.Diagnostics.Debug.Write("Calling Object");
                 sResponse = rClient.MakeRequest();

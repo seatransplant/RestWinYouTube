@@ -31,7 +31,8 @@ namespace RestWinYouTube
                 DebugOutput("Calling Rest Interface");
 
                 string sResponse = string.Empty;
-                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString(), AuthenticationType.None, AuthenticationTechnique.None);
+                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString(), AuthenticationType.None, AuthenticationTechnique.None,
+                    string.Empty, string.Empty);
 
                 DebugOutput(sResponse);
 
@@ -50,6 +51,7 @@ namespace RestWinYouTube
             numValues.Minimum = 0;
             numValues.Maximum = 0;
             numValues.Enabled = false;
+            bRecord.Enabled = false;
         }
 
 
@@ -64,12 +66,14 @@ namespace RestWinYouTube
                 numValues.Minimum = 1;
                 numValues.Maximum = jPerson.Count;
                 numValues.Enabled = true;
+                bRecord.Enabled = true;
             }
             else
             {
                 numValues.Minimum = 0;
                 numValues.Maximum = 0;
                 numValues.Enabled = false;
+                bRecord.Enabled = false;
             }
 
         }
@@ -166,12 +170,39 @@ namespace RestWinYouTube
         private void bPopulate_Click(object sender, EventArgs e)
         {
             if (rBtnJSON.Checked)
+            {
                 txtRequestURI.Text = "https://dry-cliffs-19849.herokuapp.com/users.json";
+                txtUserName.Text = String.Empty;
+                txtPassword.Text = String.Empty;
+                rBtnAuthNone.Checked = true;
+                rBtnTechNone.Checked = true;
+                bUseAuthentication.Focus();
+            }
+            /*           else if (rBtnJSONAuth.Checked)
+                           {
+                           txtRequestURI.Text = "http://192.168.0.16:8080/rest/api/2/issue/vp-1";
+                           txtUserName.Text = String.Empty;
+                           txtPassword.Text = String.Empty;
+                           radBasic.Checked = true;
+                           radRoll.Checked = true;
+                       }
+              */
             else if (rBtnSeaTransplant.Checked)
+            {
                 txtRequestURI.Text = "https://seatransplant.atlassian.net/rest/api/2/issue/10144";
+                txtUserName.Text = "kodacoda@live.com";
+                txtPassword.Text = "@ndyR0se!";
+                bUseAuthentication.Focus();
+            }
             else if (rBtnTMobile.Checked)
+            {
                 txtRequestURI.Text = "https://jira.t-mobile.com/rest/api/2/issue/152518";
+                txtUserName.Text = "scostan";
+                txtPassword.Text = String.Empty;
+                txtPassword.Focus();
+            }
 
+            DebugOutput(string.Empty);
 
         }
 
@@ -191,25 +222,33 @@ namespace RestWinYouTube
                 AuthenticationTechnique technique;
                 AuthenticationType aType;
 
-                if (radBasic.Checked)
+                if (rBtnAuthNone.Checked)
+                    aType = AuthenticationType.None;
+                else if (radBasic.Checked)
                     aType = AuthenticationType.Basic;
                 else
                     aType = AuthenticationType.NTLM;
 
-                if (radRoll.Checked)
+                if (rBtnTechNone.Checked)
+                    technique = AuthenticationTechnique.None;
+                else if (radRoll.Checked)
                     technique = AuthenticationTechnique.RollYourOwn;
                 else
                     technique = AuthenticationTechnique.NetworkCredential;
 
-                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString(), aType, technique);
+                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString(), aType, technique, txtUserName.Text.ToString(), txtPassword.Text.ToString());
 
                 DebugOutput(sResponse);
 
                 JSONOutput(sResponse);
+
+                btnDeseralize.Enabled = true;
+
             }
             catch (Exception ex)
             {
                 DebugOutput("Call Failed: " + ex.ToString() + Environment.NewLine);
+                btnDeseralize.Enabled = false;
             }
 
         }

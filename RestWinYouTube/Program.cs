@@ -16,7 +16,7 @@ namespace RestWinYouTube
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GetJSON());
+            Application.Run(new Authenticating());
         }
     }
 }

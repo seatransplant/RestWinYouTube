@@ -21,7 +21,8 @@ namespace RestWinYouTube
                 DebugOutput("Calling Rest Interface");
 
                 string sResponse = string.Empty;
-                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString(), AuthenticationType.None,AuthenticationTechnique.None);
+                sResponse = RestInterface.MakeJSONRequest(txtRequestURI.Text.ToString(), AuthenticationType.None,AuthenticationTechnique.None, 
+                    string.Empty, string.Empty);
 
                 DebugOutput(sResponse);
 

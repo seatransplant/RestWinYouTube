@@ -61,7 +61,7 @@ namespace RestWinYouTube
             if (AuthType == AuthenticationType.Basic)
             {
                 string authUser = System.Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(UserName + ":" + UserPassword));
-                string authHeader = AuthTech.ToString() + " " + authUser;
+                string authHeader = AuthType.ToString() + " " +  authUser;
                 request.Headers.Add("Authorization", authHeader);
             }
             HttpWebResponse response = null;
