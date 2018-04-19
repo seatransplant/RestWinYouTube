@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RestWinYouTube
 {
@@ -13,15 +9,16 @@ namespace RestWinYouTube
             string sResponse = string.Empty;
             try
             {
-                RestClient rClient = new RestClient();
+            RestClient rClient = new RestClient
+            {
+               EndPoint = RequestURI,
+               AuthType = aType,
+               AuthTech = aTech,
+               UserName = _UserName,
+               UserPassword = _Password
+            };
 
-                rClient.EndPoint = RequestURI;
-                rClient.AuthType = aType;
-                rClient.AuthTech = aTech;
-                rClient.UserName = _UserName;
-                rClient.UserPassword = _Password;
-
-                System.Diagnostics.Debug.Write("Calling Object");
+            System.Diagnostics.Debug.Write("Calling Object");
                 sResponse = rClient.MakeRequest();
 
                 System.Diagnostics.Debug.Write("Call Completed Successfully");
