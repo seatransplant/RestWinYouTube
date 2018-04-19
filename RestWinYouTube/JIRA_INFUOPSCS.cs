@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using RestWinYouTube;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +11,10 @@ namespace RestWinYouTube
 
    // This is from the JIRA T-Mobile Schema used by Eamon's team.
 #pragma warning disable IDE1006 // Naming Styles
-   class JIRA_INFUOPSCS
+   public class TMobile_INFUOPS_Schema
    {
 
-
-
-
-      public class Rootobject
+      public class RootObject
       {
          public string expand { get; set; }
          public int startAt { get; set; }
@@ -462,4 +461,59 @@ namespace RestWinYouTube
       }
 #pragma warning restore IDE1006 // Naming Styles
    }
+}
+public static class TMobile_INFUOPS_Interface
+{
+   #region DeSerialize_JIRA_TMobile_INFUOP
+
+   public static TMobile_INFUOPS_Schema.RootObject ProcessINFUOP(Authenticating baseForm, string ExecutionURI, string JSONOutput)
+   {
+      TMobile_INFUOPS_Schema.RootObject jTMobile;
+
+
+      jTMobile = DeserializeJSON_INFUOP(baseForm, JSONOutput);
+      baseForm.DebugOutputValue = "Deserialize Completed";
+      return jTMobile;
+   }
+
+   private static TMobile_INFUOPS_Schema.RootObject DeserializeJSON_INFUOP(Authenticating baseForm, string sJSON)
+   {
+
+      try
+      {
+         baseForm.DebugOutputValue = "Deserializing JSON";
+         TMobile_INFUOPS_Schema.RootObject jTMobile = JsonConvert.DeserializeObject<TMobile_INFUOPS_Schema.RootObject>(sJSON);
+         baseForm.DebugOutputValue = String.Format("Completed. Total Issues: {0}, Max Returned {1}", jTMobile.total, jTMobile.maxResults);
+         return jTMobile;
+      }
+
+      catch (Exception ex)
+      {
+         baseForm.DebugOutputValue = Environment.NewLine + ">>> ErrorDesearlizing:" + ex.Message.ToString();
+         return null;
+      }
+
+   }
+
+   public static TMobile_INFUOPS_Schema.Issue DeserializeJSONINFUOPSingle(Authenticating baseForm, string sJSON)
+   {
+      try
+      {
+         baseForm.DebugOutputValue = "Deserializing JSON";
+         TMobile_INFUOPS_Schema.Issue jPerson = JsonConvert.DeserializeObject<TMobile_INFUOPS_Schema.Issue>(sJSON);
+         baseForm.DebugOutputValue = "Completed: " + jPerson.key.ToString();
+         return jPerson;
+      }
+
+      catch (Exception ex)
+      {
+         baseForm.DebugOutputValue = Environment.NewLine + ">>> ErrorDesearlizing:" + ex.Message.ToString();
+         return null;
+      }
+
+
+   }
+
+   #endregion
+
 }

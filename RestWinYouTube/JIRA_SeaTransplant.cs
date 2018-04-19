@@ -14,7 +14,7 @@ namespace RestWinYouTube
 
 
 
-      public class RootJIRAobject
+      public class RootObject
       {
          public string expand { get; set; }
          public int startAt { get; set; }
@@ -474,9 +474,9 @@ public static class SeaTransplantInterface
 {
    #region DeSerialize_JIRA_SeaTransplant
 
-   public static SeaTransplant_JIRA_Schema.RootJIRAobject ProcessSeaTransplant(Authenticating baseForm, string ExecutionURI, string JSONOutput)
+   public static SeaTransplant_JIRA_Schema.RootObject ProcessSeaTransplant(Authenticating baseForm, string ExecutionURI, string JSONOutput)
    {
-      SeaTransplant_JIRA_Schema.RootJIRAobject jSeaTransplant;
+      SeaTransplant_JIRA_Schema.RootObject jSeaTransplant;
 
 
       jSeaTransplant = DeserializeJSONSeaTransplant(baseForm, JSONOutput);
@@ -484,13 +484,13 @@ public static class SeaTransplantInterface
       return jSeaTransplant;
    }
 
-   private static SeaTransplant_JIRA_Schema.RootJIRAobject DeserializeJSONSeaTransplant(Authenticating baseForm, string sJSON)
+   private static SeaTransplant_JIRA_Schema.RootObject DeserializeJSONSeaTransplant(Authenticating baseForm, string sJSON)
    {
 
       try
       {
          baseForm.DebugOutputValue = "Deserializing JSON";
-         SeaTransplant_JIRA_Schema.RootJIRAobject jPerson = JsonConvert.DeserializeObject<SeaTransplant_JIRA_Schema.RootJIRAobject>(sJSON);
+         SeaTransplant_JIRA_Schema.RootObject jPerson = JsonConvert.DeserializeObject<SeaTransplant_JIRA_Schema.RootObject>(sJSON);
          baseForm.DebugOutputValue = String.Format("Completed. Total Issues: {0}, Max Returned {1}", jPerson.total, jPerson.maxResults);
          return jPerson;
       }

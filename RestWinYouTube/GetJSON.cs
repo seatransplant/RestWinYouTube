@@ -106,7 +106,7 @@ namespace RestWinYouTube
 
             try
             {
-                List<UsersJSON> jPerson = JsonConvert.DeserializeObject<List<UsersJSON>>(strJSON);
+                List<Thistle_Schema> jPerson = JsonConvert.DeserializeObject<List<Thistle_Schema>>(strJSON);
                 DebugOutput("Sending JSON Result");
                 DeserializedOutput(jPerson[0].name);
 

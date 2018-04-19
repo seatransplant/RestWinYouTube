@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RestWinYouTube
@@ -14,8 +9,9 @@ namespace RestWinYouTube
 
    public partial class Authenticating : Form
    {
-      private List<UsersJSON> jPerson;
-      private SeaTransplant_JIRA_Schema.RootJIRAobject jSeaTransplant;
+      private List<Thistle_Schema> jPerson;
+      private SeaTransplant_JIRA_Schema.RootObject jSeaTransplant;
+      private TMobile_INFUOPS_Schema.RootObject jTMobile;
 
       public string DebugOutputValue
       {
@@ -41,7 +37,7 @@ namespace RestWinYouTube
 
 
       #region UI Event Handler
- 
+
       private void ResetFormFieldsForRequest()
       {
          JSONOutput(String.Empty);
@@ -53,16 +49,14 @@ namespace RestWinYouTube
       private void Deseralize_Click(object sender, EventArgs e)
       {
          ResetDeseralize();
+         DebugOutput("Calling Process for " + rs.ToString());
 
          if (rs == RequestServer.Thistle)
             ProcessThistle();
          else if (rs == RequestServer.Cloud)
-         {
             ProcessSeaTransplant();
-
-         }
-         //else if (rs == RequestServer.TMobile)
-         //ProcessTMobile_INFUOPS();
+         else if (rs == RequestServer.TMobile)
+            ProcessTMobile_INFUOPS();
          else
             DebugOutput("rs is in an invalid state. " + rs.ToString());
       }
@@ -70,6 +64,7 @@ namespace RestWinYouTube
       private void Record_Click(object sender, EventArgs e)
       {
          int recordNumber = (int)numValues.Value - 1;
+         DebugOutput(String.Format("Clicked record {0} for {1}", recordNumber, rs.ToString()));
 
          if (recordNumber > numValues.Maximum)
          {
@@ -82,7 +77,7 @@ namespace RestWinYouTube
                if (rs == RequestServer.Thistle)
                   if (jPerson != null)
                   {
-                     UsersJSON result = jPerson[recordNumber];
+                     Thistle_Schema result = jPerson[recordNumber];
                      DisplayThistleSingleRecord(result);
                   }
 
@@ -92,13 +87,17 @@ namespace RestWinYouTube
                      SeaTransplant_JIRA_Schema.Issue result = jSeaTransplant.issues[recordNumber];
                      DisplaySeaTransplantRecord(result);
                   }
+               if (rs == RequestServer.TMobile)
+                  if (jTMobile != null)
+                  {
+                     TMobile_INFUOPS_Schema.Issue result = jTMobile.issues[recordNumber];
+                     DisplayTMobile_INFUOPS_Record(result);
+                  }
             }
             catch (Exception ex)
             {
                DebugOutput("Error while Pulling Record: " + ex.ToString());
             }
-
-
          }
       }
 
@@ -177,7 +176,7 @@ namespace RestWinYouTube
                requestURI += "search/?jql=filter=" + FilterID.Text.ToString() + "&maxResults=" + MaxResults.Text.ToString() + "&startAt=" + StartAt.Text.ToString();
             }
          }
-         
+
          ExecuteJSONRequest(requestURI);
       }
 
@@ -234,6 +233,7 @@ namespace RestWinYouTube
 
          jPerson = null;
          jSeaTransplant = null;
+         jTMobile = null;
 
          DeserializedOutput(string.Empty);
          numValues.Minimum = 0;
@@ -275,13 +275,13 @@ namespace RestWinYouTube
             bRecord.Enabled = true;
          }
       }
-      private List<UsersJSON> DeserializeJSONThistle(string strJSON)
+      private List<Thistle_Schema> DeserializeJSONThistle(string strJSON)
       {
 
          try
          {
             DebugOutput("Deserializing JSON");
-            List<UsersJSON> jPerson = JsonConvert.DeserializeObject<List<UsersJSON>>(strJSON);
+            List<Thistle_Schema> jPerson = JsonConvert.DeserializeObject<List<Thistle_Schema>>(strJSON);
             DebugOutput("Completed: " + jPerson.Count.ToString());
             return jPerson;
          }
@@ -294,7 +294,7 @@ namespace RestWinYouTube
 
       }
 
-      private void DisplayThistleSingleRecord(UsersJSON result)
+      private void DisplayThistleSingleRecord(Thistle_Schema result)
       {
          DeserializedOutput(
              "Record ID: " + result.id + Environment.NewLine +
@@ -304,7 +304,6 @@ namespace RestWinYouTube
 
       }
       #endregion
-
       #region SeaTransplantSpecific
       private void ProcessSeaTransplant()
       {
@@ -345,6 +344,57 @@ namespace RestWinYouTube
       private void DisplaySeaTransplantRecord(SeaTransplant_JIRA_Schema.Issue result)
       {
          SeaTransplant_JIRA_Schema.Fields IssueFields = result.fields;
+         DeserializedOutput(
+             "Key: " + result.key + Environment.NewLine +
+             "Issue Type: " + IssueFields.issuetype.name + Environment.NewLine +
+             "Summary: " + IssueFields.summary + Environment.NewLine +
+             "Status: " + IssueFields.status.name
+             );
+      }
+
+      #endregion
+      #region TMobileSpecific
+      private void ProcessTMobile_INFUOPS()
+      {
+
+         string JSONOutput = txtJSONOutput.Text.ToString();
+
+         DebugOutput("In ProcessTMobile");
+         if (ExecutionURI.Text.ToString().IndexOf("/issue/") == -1)
+         {
+            DebugOutput("Non-Issue Process");
+            jTMobile = TMobile_INFUOPS_Interface.ProcessINFUOP(this, ExecutionURI.Text.ToString(), JSONOutput);
+            if (jTMobile != null)
+            {
+               numValues.Minimum = 1;
+               numValues.Maximum = jTMobile.issues.Count();
+               MaximumRecords.Text = numValues.Maximum.ToString();
+               numValues.Enabled = true;
+               bRecord.Enabled = true;
+            }
+            else
+               DebugOutput("No Records Returned");
+         }
+         else
+         {
+            TMobile_INFUOPS_Schema.Issue jSingleIssue;
+            DebugOutput("Single Issue, deserializing");
+            jSingleIssue = TMobile_INFUOPS_Interface.DeserializeJSONINFUOPSingle(this, JSONOutput);
+            if (jSingleIssue != null)
+            {
+               DebugOutput("Completed. Displaying");
+               DisplayTMobile_INFUOPS_Record(jSingleIssue);
+            }
+            else
+               DebugOutput("No Records Returned");
+
+
+         }
+      }
+
+      private void DisplayTMobile_INFUOPS_Record(TMobile_INFUOPS_Schema.Issue result)
+      {
+         TMobile_INFUOPS_Schema.Fields IssueFields = result.fields;
          DeserializedOutput(
              "Key: " + result.key + Environment.NewLine +
              "Issue Type: " + IssueFields.issuetype.name + Environment.NewLine +
