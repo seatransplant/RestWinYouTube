@@ -12,6 +12,7 @@ namespace RestWinYouTube
       private List<Thistle_Schema> jPerson;
       private SeaTransplant_JIRA_Schema.RootObject jSeaTransplant;
       private TMobile_INFUOPS_Schema.RootObject jTMobile;
+      private string BaseURI = string.Empty;
 
       public string DebugOutputValue
       {
@@ -33,6 +34,8 @@ namespace RestWinYouTube
       public Authenticating()
       {
          InitializeComponent();
+         TMobileChoice.Checked = true;
+         PopulateAndUpdateURI(null, null);
       }
 
 
@@ -103,6 +106,8 @@ namespace RestWinYouTube
 
       private void PopulateAndUpdateURI(object sender, EventArgs e)
       {
+         if (sender != null)
+            DebugOutput(string.Format("Populating URI data, etc. for {0}", sender.ToString()));
          if (ThistleChoice.Checked)
          {
             txtRequestURI.Text = "https://dry-cliffs-19849.herokuapp.com/users.json";
@@ -116,7 +121,8 @@ namespace RestWinYouTube
          }
          else if (SeaTransplantChoice.Checked)
          {
-            txtRequestURI.Text = "https://seatransplant.atlassian.net/rest/api/2/issue/10144";
+            BaseURI = "https://seatransplant.atlassian.net/rest/api/2/";
+            txtRequestURI.Text = BaseURI + "/issue/10144";
             txtUserName.Text = "kodacoda@live.com";
             txtPassword.Text = "@ndyR0se!";
             bUseAuthentication.Focus();
@@ -125,9 +131,14 @@ namespace RestWinYouTube
          }
          else if (TMobileChoice.Checked)
          {
-            txtRequestURI.Text = "https://jira.t-mobile.com/rest/api/2/issue/152518";
+            BaseURI = "https://jira.t-mobile.com/rest/api/2/";
+            txtRequestURI.Text = BaseURI + "issue/136357";
             txtUserName.Text = "scostan";
+#if DEBUG
+            txtPassword.Text = "BECU8108!";
+#else
             txtPassword.Text = String.Empty;
+#endif
             txtPassword.Focus();
             radBasic.Checked = true;
             rs = RequestServer.TMobile;
@@ -146,7 +157,8 @@ namespace RestWinYouTube
 
       private void UseAuthentication_Click(object sender, EventArgs e)
       {
-         ExecuteJSONRequest(txtRequestURI.Text.ToString());
+         ExecutionURI.Text = txtRequestURI.Text; // Necessary as all other calls reference the ExecutionURI
+         ExecuteJSONRequest(ExecutionURI.Text);
       }
 
       private void RestartProcess_Click(object sender, EventArgs e)
@@ -162,22 +174,29 @@ namespace RestWinYouTube
 
       private void RequestSpecific_Click(object sender, EventArgs e)
       {
-         string requestURI = txtRequestURI.Text.ToString();
+         string targetURI = BaseURI;
 
          if (rs == RequestServer.Thistle)
             DebugOutput("Cannot do a specific search on this URI. Using unmodified");
          else
          {
             if (FilterRadio.Checked)
+               targetURI += "search/?jql=filter=" + FilterID.Text.ToString() + "&maxResults=" + MaxResults.Text.ToString() + "&startAt=" + StartAt.Text.ToString();
+            else // use this block IF the secondary checkboxes can apply
             {
-               int issueStart = 0;
-               issueStart = requestURI.IndexOf("issue");
-               requestURI = requestURI.Substring(0, issueStart);
-               requestURI += "search/?jql=filter=" + FilterID.Text.ToString() + "&maxResults=" + MaxResults.Text.ToString() + "&startAt=" + StartAt.Text.ToString();
+               if (IssueIDRadio.Checked)
+                  targetURI += "issue/" + IssueID.Text;
+               if (IssueKeyRadio.Checked)
+                  targetURI += "issue/" + IssueKey.Text;
+
+               if (CheckChangeLog.Checked)
+                  targetURI += "?expand=changelog";
             }
+            ExecutionURI.Text = targetURI;
+            ExecutionURI.Refresh();
          }
 
-         ExecuteJSONRequest(requestURI);
+         ExecuteJSONRequest(targetURI);
       }
 
       #endregion
@@ -364,7 +383,7 @@ namespace RestWinYouTube
          {
             DebugOutput("Non-Issue Process");
             jTMobile = TMobile_INFUOPS_Interface.ProcessINFUOP(this, ExecutionURI.Text.ToString(), JSONOutput);
-            if (jTMobile != null)
+            if (jTMobile != null && jTMobile.issues != null)
             {
                numValues.Minimum = 1;
                numValues.Maximum = jTMobile.issues.Count();
@@ -395,12 +414,31 @@ namespace RestWinYouTube
       private void DisplayTMobile_INFUOPS_Record(TMobile_INFUOPS_Schema.Issue result)
       {
          TMobile_INFUOPS_Schema.Fields IssueFields = result.fields;
-         DeserializedOutput(
+         TMobile_INFUOPS_Schema.Changelog ChangeLog = result.changelog;
+
+         string ENL = Environment.NewLine;
+         string dOutput = string.Empty;
+
+         dOutput =
              "Key: " + result.key + Environment.NewLine +
+             "ID: " + result.id + Environment.NewLine +
              "Issue Type: " + IssueFields.issuetype.name + Environment.NewLine +
              "Summary: " + IssueFields.summary + Environment.NewLine +
-             "Status: " + IssueFields.status.name
-             );
+             "Status: " + IssueFields.status.name + ENL +
+             "History Records: " + ChangeLog.total + ENL;
+
+         foreach (TMobile_INFUOPS_Schema.History history in ChangeLog.histories)
+         {
+            foreach (TMobile_INFUOPS_Schema.Item item in history.items)
+            {
+               if (item.field == "Expected Unblocked Date")
+                  dOutput += "Expected Unblocked Date: " + item.toString + ENL;
+            }
+         }
+
+
+
+         DeserializedOutput(dOutput);
       }
 
       #endregion
@@ -433,7 +471,7 @@ namespace RestWinYouTube
             else
                technique = AuthenticationTechnique.NetworkCredential;
 
-            ExecutionURI.Text = TargetURI;
+
 
             sResponse = RestInterface.MakeJSONRequest(TargetURI, aType, technique, txtUserName.Text.ToString(), txtPassword.Text.ToString());
 

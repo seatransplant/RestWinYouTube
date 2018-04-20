@@ -30,6 +30,7 @@ namespace RestWinYouTube
          public string self { get; set; }
          public string key { get; set; }
          public Fields fields { get; set; }
+         public Changelog changelog { get; set; }
       }
 
       public class Fields
@@ -49,7 +50,7 @@ namespace RestWinYouTube
          public object customfield_24000 { get; set; }
          public object customfield_24001 { get; set; }
          public object customfield_24002 { get; set; }
-         public DateTime? lastViewed { get; set; }
+         public object lastViewed { get; set; }
          public object customfield_12004 { get; set; }
          public object customfield_12124 { get; set; }
          public object customfield_12006 { get; set; }
@@ -60,11 +61,11 @@ namespace RestWinYouTube
          public object customfield_11704 { get; set; }
          public object aggregatetimeoriginalestimate { get; set; }
          public object[] issuelinks { get; set; }
-         public object assignee { get; set; }
+         public Assignee assignee { get; set; }
          public object customfield_25900 { get; set; }
          public object[] components { get; set; }
          public object customfield_17000 { get; set; }
-         public float customfield_12112 { get; set; }
+         public float? customfield_12112 { get; set; }
          public object customfield_12116 { get; set; }
          public object customfield_12107 { get; set; }
          public object customfield_12106 { get; set; }
@@ -84,6 +85,7 @@ namespace RestWinYouTube
          public Progress progress { get; set; }
          public object customfield_25003 { get; set; }
          public Votes votes { get; set; }
+         public Worklog worklog { get; set; }
          public object customfield_11929 { get; set; }
          public Issuetype issuetype { get; set; }
          public object customfield_17102 { get; set; }
@@ -98,10 +100,10 @@ namespace RestWinYouTube
          public object customfield_12215 { get; set; }
          public object customfield_12214 { get; set; }
          public object customfield_12205 { get; set; }
-         public float customfield_11911 { get; set; }
+         public float? customfield_11911 { get; set; }
          public object customfield_11910 { get; set; }
          public object customfield_11913 { get; set; }
-         public float customfield_11912 { get; set; }
+         public float? customfield_11912 { get; set; }
          public object customfield_11915 { get; set; }
          public object resolutiondate { get; set; }
          public object customfield_11914 { get; set; }
@@ -135,17 +137,14 @@ namespace RestWinYouTube
          public object customfield_10013 { get; set; }
          public object customfield_10014 { get; set; }
          public object customfield_14610 { get; set; }
+         public Timetracking timetracking { get; set; }
          public object customfield_10015 { get; set; }
          public object customfield_14611 { get; set; }
-         public string customfield_10005 { get; set; }
          public object customfield_12305 { get; set; }
          public object customfield_14605 { get; set; }
          public object customfield_10006 { get; set; }
-         public object customfield_12304 { get; set; }
          public object customfield_14606 { get; set; }
          public object customfield_16904 { get; set; }
-         public Customfield_10007 customfield_10007 { get; set; }
-         public string customfield_10008 { get; set; }
          public string customfield_10009 { get; set; }
          public object customfield_14609 { get; set; }
          public object customfield_16909 { get; set; }
@@ -162,13 +161,14 @@ namespace RestWinYouTube
          public object customfield_10115 { get; set; }
          public object environment { get; set; }
          public object duedate { get; set; }
-         public object customfield_21004 { get; set; }
-         public object customfield_21002 { get; set; }
+         public Comment comment { get; set; }
+         public Customfield_21004[] customfield_21004 { get; set; }
+         public string customfield_21002 { get; set; }
          public object customfield_15000 { get; set; }
          public object[] fixVersions { get; set; }
          public object customfield_10110 { get; set; }
          public object customfield_10111 { get; set; }
-         public string customfield_11200 { get; set; }
+         public object customfield_11200 { get; set; }
          public object customfield_10112 { get; set; }
          public object customfield_10113 { get; set; }
          public object customfield_10114 { get; set; }
@@ -296,7 +296,8 @@ namespace RestWinYouTube
          public object customfield_12157 { get; set; }
          public object customfield_12159 { get; set; }
          public object customfield_10403 { get; set; }
-         public float customfield_12704 { get; set; }
+         public object[] attachment { get; set; }
+         public float? customfield_12704 { get; set; }
          public object customfield_12141 { get; set; }
          public object customfield_12140 { get; set; }
          public object customfield_12143 { get; set; }
@@ -323,6 +324,8 @@ namespace RestWinYouTube
          public bool active { get; set; }
          public string timeZone { get; set; }
       }
+
+      public class Timetracking { }
 
       public class Avatarurls
       {
@@ -375,16 +378,9 @@ namespace RestWinYouTube
          public string id { get; set; }
          public string key { get; set; }
          public string name { get; set; }
-         public Avatarurls1 avatarUrls { get; set; }
+         public Avatarurls avatarUrls { get; set; }
       }
 
-      public class Avatarurls1
-      {
-         public string _48x48 { get; set; }
-         public string _24x24 { get; set; }
-         public string _16x16 { get; set; }
-         public string _32x32 { get; set; }
-      }
 
       public class Watches
       {
@@ -433,19 +429,12 @@ namespace RestWinYouTube
          public string name { get; set; }
          public string key { get; set; }
          public string emailAddress { get; set; }
-         public Avatarurls2 avatarUrls { get; set; }
+         public Avatarurls avatarUrls { get; set; }
          public string displayName { get; set; }
          public bool active { get; set; }
          public string timeZone { get; set; }
       }
 
-      public class Avatarurls2
-      {
-         public string _48x48 { get; set; }
-         public string _24x24 { get; set; }
-         public string _16x16 { get; set; }
-         public string _32x32 { get; set; }
-      }
 
       public class Aggregateprogress
       {
@@ -459,9 +448,94 @@ namespace RestWinYouTube
          public string value { get; set; }
          public string id { get; set; }
       }
-#pragma warning restore IDE1006 // Naming Styles
+
+      public class Assignee
+      {
+         public string self { get; set; }
+         public string name { get; set; }
+         public string key { get; set; }
+         public string emailAddress { get; set; }
+         public Avatarurls avatarUrls { get; set; }
+         public string displayName { get; set; }
+         public bool active { get; set; }
+         public string timeZone { get; set; }
+      }
+
+      public class Worklog
+      {
+         public int startAt { get; set; }
+         public int maxResults { get; set; }
+         public int total { get; set; }
+         public object[] worklogs { get; set; }
+      }
+
+      public class Comment
+      {
+         public Comment1[] comments { get; set; }
+         public int maxResults { get; set; }
+         public int total { get; set; }
+         public int startAt { get; set; }
+      }
+
+      public class Comment1
+      {
+         public string self { get; set; }
+         public string id { get; set; }
+         public Author author { get; set; }
+         public string body { get; set; }
+         public Author updateAuthor { get; set; }
+         public DateTime created { get; set; }
+         public DateTime updated { get; set; }
+      }
+
+      public class Item
+      {
+         public string field { get; set; }
+         public string fieldtype { get; set; }
+         public string from { get; set; }
+         public string fromString { get; set; }
+         public string to { get; set; }
+         public string toString { get; set; }
+      }
+      public class Customfield_21004
+      {
+         public string self { get; set; }
+         public string value { get; set; }
+         public string id { get; set; }
+      }
+
+      public class Changelog
+      {
+         public int startAt { get; set; }
+         public int maxResults { get; set; }
+         public int total { get; set; }
+         public History[] histories { get; set; }
+      }
+
+      public class History
+      {
+         public string id { get; set; }
+         public Author author { get; set; }
+         public DateTime created { get; set; }
+         public Item[] items { get; set; }
+      }
+
+      public class Author
+      {
+         public string self { get; set; }
+         public string name { get; set; }
+         public string key { get; set; }
+         public string emailAddress { get; set; }
+         public Avatarurls avatarUrls { get; set; }
+         public string displayName { get; set; }
+         public bool active { get; set; }
+         public string timeZone { get; set; }
+      }
    }
+
+#pragma warning restore IDE1006 // Naming Styles
 }
+
 public static class TMobile_INFUOPS_Interface
 {
    #region DeSerialize_JIRA_TMobile_INFUOP
@@ -517,3 +591,4 @@ public static class TMobile_INFUOPS_Interface
    #endregion
 
 }
+

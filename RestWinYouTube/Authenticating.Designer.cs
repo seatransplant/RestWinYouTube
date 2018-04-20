@@ -42,6 +42,10 @@
          this.label1 = new System.Windows.Forms.Label();
          this.txtRequestURI = new System.Windows.Forms.TextBox();
          this.Specifics = new System.Windows.Forms.GroupBox();
+         this.IssueKey = new System.Windows.Forms.TextBox();
+         this.IssueKeyRadio = new System.Windows.Forms.RadioButton();
+         this.IssueID = new System.Windows.Forms.TextBox();
+         this.IssueIDRadio = new System.Windows.Forms.RadioButton();
          this.label9 = new System.Windows.Forms.Label();
          this.StartAt = new System.Windows.Forms.TextBox();
          this.label8 = new System.Windows.Forms.Label();
@@ -72,6 +76,7 @@
          this.MaximumRecords = new System.Windows.Forms.Label();
          this.label7 = new System.Windows.Forms.Label();
          this.ExecutionURI = new System.Windows.Forms.TextBox();
+         this.CheckChangeLog = new System.Windows.Forms.CheckBox();
          ((System.ComponentModel.ISupportInitialize)(this.numValues)).BeginInit();
          this.groupBox1.SuspendLayout();
          this.Specifics.SuspendLayout();
@@ -226,6 +231,11 @@
          // Specifics
          // 
          this.Specifics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.Specifics.Controls.Add(this.CheckChangeLog);
+         this.Specifics.Controls.Add(this.IssueKey);
+         this.Specifics.Controls.Add(this.IssueKeyRadio);
+         this.Specifics.Controls.Add(this.IssueID);
+         this.Specifics.Controls.Add(this.IssueIDRadio);
          this.Specifics.Controls.Add(this.label9);
          this.Specifics.Controls.Add(this.StartAt);
          this.Specifics.Controls.Add(this.label8);
@@ -239,6 +249,42 @@
          this.Specifics.TabIndex = 42;
          this.Specifics.TabStop = false;
          this.Specifics.Text = "Specific Options";
+         // 
+         // IssueKey
+         // 
+         this.IssueKey.Location = new System.Drawing.Point(90, 69);
+         this.IssueKey.Name = "IssueKey";
+         this.IssueKey.Size = new System.Drawing.Size(100, 20);
+         this.IssueKey.TabIndex = 51;
+         // 
+         // IssueKeyRadio
+         // 
+         this.IssueKeyRadio.AutoSize = true;
+         this.IssueKeyRadio.Location = new System.Drawing.Point(15, 72);
+         this.IssueKeyRadio.Name = "IssueKeyRadio";
+         this.IssueKeyRadio.Size = new System.Drawing.Size(65, 17);
+         this.IssueKeyRadio.TabIndex = 50;
+         this.IssueKeyRadio.TabStop = true;
+         this.IssueKeyRadio.Text = "Use Key";
+         this.IssueKeyRadio.UseVisualStyleBackColor = true;
+         // 
+         // IssueID
+         // 
+         this.IssueID.Location = new System.Drawing.Point(90, 43);
+         this.IssueID.Name = "IssueID";
+         this.IssueID.Size = new System.Drawing.Size(100, 20);
+         this.IssueID.TabIndex = 49;
+         // 
+         // IssueIDRadio
+         // 
+         this.IssueIDRadio.AutoSize = true;
+         this.IssueIDRadio.Location = new System.Drawing.Point(15, 46);
+         this.IssueIDRadio.Name = "IssueIDRadio";
+         this.IssueIDRadio.Size = new System.Drawing.Size(58, 17);
+         this.IssueIDRadio.TabIndex = 48;
+         this.IssueIDRadio.TabStop = true;
+         this.IssueIDRadio.Text = "Use ID";
+         this.IssueIDRadio.UseVisualStyleBackColor = true;
          // 
          // label9
          // 
@@ -551,6 +597,17 @@
          this.ExecutionURI.Size = new System.Drawing.Size(1152, 20);
          this.ExecutionURI.TabIndex = 44;
          // 
+         // CheckChangeLog
+         // 
+         this.CheckChangeLog.AutoSize = true;
+         this.CheckChangeLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+         this.CheckChangeLog.Location = new System.Drawing.Point(215, 47);
+         this.CheckChangeLog.Name = "CheckChangeLog";
+         this.CheckChangeLog.Size = new System.Drawing.Size(114, 17);
+         this.CheckChangeLog.TabIndex = 52;
+         this.CheckChangeLog.Text = "Show Change Log";
+         this.CheckChangeLog.UseVisualStyleBackColor = true;
+         // 
          // Authenticating
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -624,5 +681,10 @@
       private System.Windows.Forms.Label label9;
       private System.Windows.Forms.TextBox StartAt;
       private System.Windows.Forms.Label MaximumRecords;
+      private System.Windows.Forms.TextBox IssueID;
+      private System.Windows.Forms.RadioButton IssueIDRadio;
+      private System.Windows.Forms.TextBox IssueKey;
+      private System.Windows.Forms.RadioButton IssueKeyRadio;
+      private System.Windows.Forms.CheckBox CheckChangeLog;
    }
 }
