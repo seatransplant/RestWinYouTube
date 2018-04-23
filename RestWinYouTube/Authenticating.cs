@@ -157,6 +157,7 @@ namespace RestWinYouTube
 
       private void UseAuthentication_Click(object sender, EventArgs e)
       {
+         CheckChangeLog.Checked = false;
          ExecutionURI.Text = txtRequestURI.Text; // Necessary as all other calls reference the ExecutionURI
          ExecuteJSONRequest(ExecutionURI.Text);
       }
@@ -424,18 +425,22 @@ namespace RestWinYouTube
              "ID: " + result.id + Environment.NewLine +
              "Issue Type: " + IssueFields.issuetype.name + Environment.NewLine +
              "Summary: " + IssueFields.summary + Environment.NewLine +
-             "Status: " + IssueFields.status.name + ENL +
-             "History Records: " + ChangeLog.total + ENL;
+             "Status: " + IssueFields.status.name + ENL;
 
-         foreach (TMobile_INFUOPS_Schema.History history in ChangeLog.histories)
+         if (CheckChangeLog.Checked)
          {
-            foreach (TMobile_INFUOPS_Schema.Item item in history.items)
+            dOutput +=
+                "History Records: " + ChangeLog.total + ENL;
+
+            foreach (TMobile_INFUOPS_Schema.History history in ChangeLog.histories)
             {
-               if (item.field == "Expected Unblocked Date")
-                  dOutput += "Expected Unblocked Date: " + item.toString + ENL;
+               foreach (TMobile_INFUOPS_Schema.Item item in history.items)
+               {
+                  if (item.field == "Expected Unblocked Date")
+                     dOutput += "Expected Unblocked Date: " + item.toString + ENL;
+               }
             }
          }
-
 
 
          DeserializedOutput(dOutput);
@@ -501,7 +506,20 @@ namespace RestWinYouTube
 
       }
 
+      private void FilterID_TextChanged(object sender, EventArgs e)
+      {
+         FilterRadio.Checked = true;
+      }
 
+      private void IssueID_TextChanged(object sender, EventArgs e)
+      {
+         IssueIDRadio.Checked = true;
+      }
+
+      private void IssueKey_TextChanged(object sender, EventArgs e)
+      {
+         IssueKeyRadio.Checked = true;
+      }
    }
 
 }

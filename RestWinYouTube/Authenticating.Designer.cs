@@ -42,6 +42,7 @@
          this.label1 = new System.Windows.Forms.Label();
          this.txtRequestURI = new System.Windows.Forms.TextBox();
          this.Specifics = new System.Windows.Forms.GroupBox();
+         this.CheckChangeLog = new System.Windows.Forms.CheckBox();
          this.IssueKey = new System.Windows.Forms.TextBox();
          this.IssueKeyRadio = new System.Windows.Forms.RadioButton();
          this.IssueID = new System.Windows.Forms.TextBox();
@@ -76,7 +77,6 @@
          this.MaximumRecords = new System.Windows.Forms.Label();
          this.label7 = new System.Windows.Forms.Label();
          this.ExecutionURI = new System.Windows.Forms.TextBox();
-         this.CheckChangeLog = new System.Windows.Forms.CheckBox();
          ((System.ComponentModel.ISupportInitialize)(this.numValues)).BeginInit();
          this.groupBox1.SuspendLayout();
          this.Specifics.SuspendLayout();
@@ -250,12 +250,24 @@
          this.Specifics.TabStop = false;
          this.Specifics.Text = "Specific Options";
          // 
+         // CheckChangeLog
+         // 
+         this.CheckChangeLog.AutoSize = true;
+         this.CheckChangeLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+         this.CheckChangeLog.Location = new System.Drawing.Point(215, 47);
+         this.CheckChangeLog.Name = "CheckChangeLog";
+         this.CheckChangeLog.Size = new System.Drawing.Size(114, 17);
+         this.CheckChangeLog.TabIndex = 52;
+         this.CheckChangeLog.Text = "Show Change Log";
+         this.CheckChangeLog.UseVisualStyleBackColor = true;
+         // 
          // IssueKey
          // 
          this.IssueKey.Location = new System.Drawing.Point(90, 69);
          this.IssueKey.Name = "IssueKey";
          this.IssueKey.Size = new System.Drawing.Size(100, 20);
          this.IssueKey.TabIndex = 51;
+         this.IssueKey.TextChanged += new System.EventHandler(this.IssueKey_TextChanged);
          // 
          // IssueKeyRadio
          // 
@@ -274,6 +286,7 @@
          this.IssueID.Name = "IssueID";
          this.IssueID.Size = new System.Drawing.Size(100, 20);
          this.IssueID.TabIndex = 49;
+         this.IssueID.TextChanged += new System.EventHandler(this.IssueID_TextChanged);
          // 
          // IssueIDRadio
          // 
@@ -326,6 +339,7 @@
          this.FilterID.Name = "FilterID";
          this.FilterID.Size = new System.Drawing.Size(100, 20);
          this.FilterID.TabIndex = 1;
+         this.FilterID.TextChanged += new System.EventHandler(this.FilterID_TextChanged);
          // 
          // FilterRadio
          // 
@@ -596,17 +610,6 @@
          this.ExecutionURI.Name = "ExecutionURI";
          this.ExecutionURI.Size = new System.Drawing.Size(1152, 20);
          this.ExecutionURI.TabIndex = 44;
-         // 
-         // CheckChangeLog
-         // 
-         this.CheckChangeLog.AutoSize = true;
-         this.CheckChangeLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-         this.CheckChangeLog.Location = new System.Drawing.Point(215, 47);
-         this.CheckChangeLog.Name = "CheckChangeLog";
-         this.CheckChangeLog.Size = new System.Drawing.Size(114, 17);
-         this.CheckChangeLog.TabIndex = 52;
-         this.CheckChangeLog.Text = "Show Change Log";
-         this.CheckChangeLog.UseVisualStyleBackColor = true;
          // 
          // Authenticating
          // 
